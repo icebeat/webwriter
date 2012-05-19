@@ -156,4 +156,4 @@ body { overflow: auto; }
 
 /* Focus Mode */
 .focusmode p { color: #CCC; }
-.focusmode em, .focusmode del:after { border-bottom: 2px solid #CCC; }
+.focusmode em, .focusmode del:before { border-bottom: 2px solid #CCC; }
