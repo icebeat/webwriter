@@ -455,10 +455,9 @@ Extend(Editor.prototype, {
 				if (value[0] == start[0] && !(value[1] || this.textSelected)) {
 					value = "";
 					line = from.line;
-					add = "";
 					del = start[0];
-					var position = this.getPositionFromChar(from.line, 0);
-					this.replaceLines(from.line, to.line, value);
+					this.replaceLines(line, to.line, value);
+					var position = this.getPositionFromChar(line, 0);
 					this.addHistory({
 						action: "newline",
 						add: "",
