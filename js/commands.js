@@ -538,6 +538,11 @@ Extend(Editor.prototype, {
 	},
 
 	smartTyping: function (from, to, open, close, select, noHistory) {
+		if (this.shiftSelecting && Range.equal(from, to)) {
+			var positions = this.findWord(to);
+			from = positions.from;
+			to = positions.to;
+		}
 		var _from = Range.copy(from), _to = Range.copy(to);
 		var value = this.getContent(from, to), textSelected = value.chunk[1];
 		value = value.chunk[0] + open + value.chunk[1] + close + value.chunk[2];
