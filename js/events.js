@@ -253,7 +253,7 @@ var keyBindings = {
 		"super+f": "toggleFullScreen",
 		"super+b": "makeStrong",
 		"super+i": "makeEmphasis",
-		//"super+d": "makeDelete",
+		"super+u": "makeDelete",
 		"super+l": "toggleToDo",
 		// "super+tab": "toggleDocument",
 		// "super+e": "toggleWidth",
