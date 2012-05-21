@@ -591,7 +591,6 @@ Extend(Editor.prototype, {
 	},
 
 	selectLine: function (position) {
-		console.log(this.width)
 		var from = this.getPositionFromPoint(0, position.y), to =  this.getPositionFromPoint(this.width, position.y);
 		this.updateView(from, to);
 	},

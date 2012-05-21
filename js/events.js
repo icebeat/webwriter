@@ -218,7 +218,7 @@ var keyBindings = {
 		"up": "goLineUp",
 		"down": "goLineDown",
 		"end": "goLineEnd",
-		"home": "goLineStartSmart",
+		"home": "goDocStart",
 		"pageUp": "goPageUp",
 		"pageDown": "goPageDown",
 		"delete": "delCharRight",
@@ -227,7 +227,6 @@ var keyBindings = {
 		"shift+tab": "indentLess",
 		"enter": "newlineAndIndent", 
 		"insert": "toggleOverwrite",
-		"super+enter": "smartNewlineAndIndent",
 		/* Commands */
 		"super+d": "toggleFocusMode",
 		"super+a": "selectAll",
@@ -256,8 +255,8 @@ var keyBindings = {
 		"super+i": "makeEmphasis",
 		//"super+d": "makeDelete",
 		"super+l": "toggleToDo",
-		"super+tab": "toggleDocument",
-		"super+e": "toggleWidth",
+		// "super+tab": "toggleDocument",
+		// "super+e": "toggleWidth",
 		/* emacsy */
 		"Ctrl-F": "goCharRight",
 		"Ctrl-B": "goCharLeft",
