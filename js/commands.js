@@ -375,7 +375,7 @@ Extend(Editor.prototype, {
 		var position, line, size = this.getSize();
 		line = this.getLine(size); 
 		position = this.getPositionFromChar(size, line.textContent.length);
-		this.update(this.shiftSelecting ? this.from : position, position);
+		this.updateView(this.shiftSelecting ? this.from : position, position);
 	},
 	goWordLeft: function () {
 		this.moveHorizontalPoint(-1, "word");
