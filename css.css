@@ -23,10 +23,8 @@ body { overflow: auto; }
 /* Hide Selection */
 ::selection{ background: rgba(0,0,0,0); }
 /* Scrollbars */
-::-webkit-scrollbar { width: 20px; height: 20px; }
-::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb { border-radius: 999px; border: 8px solid transparent; }
-::-webkit-scrollbar-thumb { min-height: 20px; box-shadow: 0 0 0 8px rgba(0,0,0,.5) inset; }
-::-webkit-scrollbar-corner { background: transparent; }
+::-webkit-scrollbar { -webkit-appearance: none; width: 5px; }
+::-webkit-scrollbar-thumb { border-radius: 4px; background-color: rgba(0,0,0,.55); box-shadow: 0 0 1px rgba(255,255,255,.5); }
 
 /* Editor */
 .editor,
@@ -42,7 +40,7 @@ body { overflow: auto; }
 	.view {
 		top: 32px;
 		bottom: 32px;
-		right: 2px;
+		right: 10px;
 		overflow-y: scroll;
 	}
 	
