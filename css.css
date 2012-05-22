@@ -101,6 +101,12 @@ body { overflow: auto; }
 			top: -32px;
 			left: 0;
 			z-index: 15;
+			-webkit-animation: blink-cursor 1.2s step-end infinite;
+		}
+
+		@-webkit-keyframes blink-cursor {
+			from, to { background-color: #00BAFF; }
+			50% { background-color: transparent; }
 		}
 
 		/* Selection */

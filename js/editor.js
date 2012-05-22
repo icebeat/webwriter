@@ -20,7 +20,6 @@ var Editor = function (lines, options) {
 	this.lastDoubleClick =  null;
 	this.lastClick = null;
 	this.focusmode = null;
-	this.blinker = null;
 	this.shiftSelecting = null;
 	this.textSelected = null;
 	this.textPasted = null;
