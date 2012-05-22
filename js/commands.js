@@ -744,14 +744,13 @@ Extend(Editor.prototype, {
 	save: function() {
 	    var save = this.options.localStorage;
 	    localStorage[save] = this.getText(1, this.getSize());
-	    this.saveLog();
+	    this.saveLog('footer');
 	},
 
-	saveLog: function() {
-	    msgArea = this.editor.getElementsByTagName("header")[0];
+	saveLog: function(tagName) {
+	    msgArea = this.editor.getElementsByTagName(tagName)[0];
 	    d = new Date();
-	    console.log(d);
-	    this.saveTime = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() 
+	    this.saveTime = d.getHours() + ":" + d.getMinutes() + ":" + (d.getSeconds() < 10 ? "0":"") + d.getSeconds() 
 		this.saveDate = d.getMonth() + "/" + d.getDay() + "/" + d.getFullYear();
 	    msgArea.innerHTML ="<span class='timesaved' style='display:block; position:absolute; right:4px;top:4px;padding:0;text-align:right;font-weight:normal;'>Saved at <strong>" + this.saveTime + '</strong> on <strong>'+this.saveDate+'</strong></span>';
 	}
