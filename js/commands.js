@@ -98,7 +98,7 @@ Extend(Editor.prototype, {
 
 	getPositionFromPoint: function (x, y) {
 		var element = this.element, wrapper = element.wrapper, view = element.view;
-		x += wrapper.getBoundingClientRect().left + this.padding_width / 2;
+		x += wrapper.getBoundingClientRect().left + this.padding;
 		y += view.getBoundingClientRect().top + 8;
 		y -= view.scrollTop - parseInt(wrapper.style.paddingTop);
 		return this.getPosition(x, y);
@@ -350,7 +350,7 @@ Extend(Editor.prototype, {
 	},
 	goLineStart: function () {
 		var start = this.selectionStart(), position;
-		position = this.getPositionFromPoint(0, start.y);
+		position = this.getPositionFromPoint(-this.padding, start.y);
 		this.updateView(this.shiftSelecting ? this.from : position, position);
 	},
 	goLineEnd: function () {

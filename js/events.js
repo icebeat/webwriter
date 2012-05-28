@@ -240,6 +240,8 @@ var keyBindings = {
 		"alt+right": "goWordRight",
 		"super+left": "goLineStart",
 		"super+right": "goLineEnd",
+		"alt+up": "goLineStart",
+		"alt+down": "goLineEnd",
 		"alt+backspace": "delWordLeft",
 		"ctrl+alt+backspace": "delWordRight",
 		"super+backspace": "deleteLine",

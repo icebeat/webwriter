@@ -75,11 +75,12 @@ Extend(Editor.prototype, {
 		this.width = text.offsetWidth * max_line;
 		this.line_height = text.offsetHeight;
 		this.em_width = text.offsetWidth;
-		this.padding_width = option.padding_length * this.em_width * 2;
+		this.padding = option.padding_length * this.em_width;
+		this.padding_width = this.padding * 2;
 
 		wrapper.style.width = this.width + this.padding_width + "px";
 		wrapper.style.padding = this.line_height + "px 0";
-		content.style.padding = "0 " + (this.padding_width/2) + "px";
+		content.style.padding = "0 " + this.padding + "px";
 
 	},
 
