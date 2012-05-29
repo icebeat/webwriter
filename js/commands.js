@@ -98,7 +98,7 @@ Extend(Editor.prototype, {
 
 	getPositionFromPoint: function (x, y) {
 		var element = this.element, wrapper = element.wrapper, view = element.view;
-		x += wrapper.getBoundingClientRect().left + this.padding;
+		x += wrapper.getBoundingClientRect().left;
 		y += view.getBoundingClientRect().top + 8;
 		y -= view.scrollTop - parseInt(wrapper.style.paddingTop);
 		return this.getPosition(x, y);
@@ -256,6 +256,7 @@ Extend(Editor.prototype, {
 			position = dir < 0 ? from : to;
 		}
 		this.updateView(this.shiftSelecting ? this.from : position, position);
+		this.previousSelection = null;
 	},
 
 	moveVerticalPoint: function (dir, unit) {
@@ -273,7 +274,7 @@ Extend(Editor.prototype, {
 			var copyCursor = Range.copy(to);
 			copyCursor.y = to.y + distance * dir;
 			this.updateCursor(copyCursor, copyCursor);
-			position = this.getPositionFromPoint(to.x, parseInt(this.element.cursor.style.top));
+			position = this.getPositionFromPoint(to.x, copyCursor.y);
 		} else if (!Range.less(from, to)) {
 			position = dir < 0 ? to : from;
 		} else {
