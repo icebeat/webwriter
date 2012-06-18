@@ -129,7 +129,7 @@ Extend(Editor.prototype, {
 		range.selectNodeContents(node);
 		range.setStart(range.startContainer, size);
 		range.setEnd(range.endContainer, size);
-		
+
 		var positions = range.getClientRects(), position;
 		position = positions.length > 1 ? positions[1] : positions[0];
 
@@ -360,13 +360,13 @@ Extend(Editor.prototype, {
 		this.updateView(this.shiftSelecting ? this.from : position, position);
 	},
 	goLineStartSmart: function () {
-		
+
 	},
 	goPageUp: function () {
 
 	},
 	goPageDown: function () {
-		
+
 	},
 	goDocStart: function () {
 		var position = this.getPositionFromChar(1, 0);
@@ -397,7 +397,7 @@ Extend(Editor.prototype, {
 		this.removePoint(1, "word");
 	},
 	deleteLine: function () {
-		
+
 	},
 
 	indent: function (dir, from, to, noHistory) {
@@ -448,7 +448,7 @@ Extend(Editor.prototype, {
 
 	newlineAndIndent: function () {
 		var value = this.inputValue.chunk, node, from = this.selectionStart(), to = this.selectionEnd(), line = from.line + 1, ch = 0, start, add = "\n", del = this.textSelected;
-		
+
 		value.splice(1,1);
 		if (this.options.smartNewline) {
 			start = Parser.newline(value[0]);
@@ -677,7 +677,7 @@ Extend(Editor.prototype, {
 	},
 
 	selectAll: function () {
-		
+
 		var size = this.getSize(),
 			line = this.getLine(size),
 			from = this.getPositionFromChar(1, 0),
@@ -742,9 +742,19 @@ Extend(Editor.prototype, {
 		}
 	},
 
-	save: function () {
-		var save = this.options.localStorage;
-		localStorage[save] = this.getText(1, this.getSize());
+	save: function() {
+	    var save = this.options.localStorage;
+	    localStorage[save] = this.getText(1, this.getSize());
+	    this.saveLog('footer');
+	},
+
+	saveLog: function(tagName) {
+	    msgArea = this.editor.getElementsByTagName(tagName)[0];
+	    d = new Date();
+	    this.saveTime = d.getHours() + ":" + d.getMinutes() + ":" + (d.getSeconds() < 10 ? "0":"") + d.getSeconds() 
+		this.saveDate = d.getMonth() + "/" + d.getDay() + "/" + d.getFullYear();
+	    msgArea.innerHTML ="<span class='timesaved' style='display:block; position:absolute; right:4px;top:4px;padding:0;text-align:right;font-weight:normal;'>Saved at <strong>" + this.saveTime + '</strong> on <strong>'+this.saveDate+'</strong></span>';
 	}
 
 });
+
