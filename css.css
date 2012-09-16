@@ -78,7 +78,7 @@ body { overflow: auto; }
 	footer:before { top: -8px; background: -webkit-linear-gradient(rgba(242,242,242,0),rgba(242,242,242,1)); }
 
 	/* Wrapper */
-	.wrapper { width: 832px; margin: 0 auto; }
+	.wrapper { /*width: 832px;*/ margin: 0 auto; }
 		.body { position: relative; }
 
 		/* Measure */
@@ -93,7 +93,8 @@ body { overflow: auto; }
 
 		/* Cursor */
 		.cursor {
-			background-color: #00BAFF;
+			/*background-color: #00BAFF;*/
+			background-color: rgba(223, 89, 65, 1);
 			display: block;
 			position: absolute;
 			width: 3px;
@@ -105,7 +106,8 @@ body { overflow: auto; }
 		}
 
 		@-webkit-keyframes blink-cursor {
-			from, to { background-color: #00BAFF; }
+			/*from, to { background-color: #00BAFF; }*/
+			from, to { background-color: rgba(223, 89, 65, 1); }
 			50% { background-color: transparent; }
 		}
 
@@ -114,7 +116,8 @@ body { overflow: auto; }
 			position: absolute;
 			display: inline-block;
 			min-height: 32px;
-			background-color: rgba(0, 186, 255, 0.2);
+			/*background-color: rgba(0, 186, 255, 0.2);*/
+			background-color: rgba(223, 89, 65, 0.25);
 		}
 
 		/* Textarea */
@@ -154,9 +157,11 @@ body { overflow: auto; }
 				width: 100%;
 				top: 50%;
 				position: absolute;
-				border-bottom: 2px solid #424242;
+				/* border-bottom: 2px solid #424242; */
+				border-bottom: 2px solid rgba(223, 89, 65, 1);
 			}
 			.todo { cursor: pointer; }
+			.header { color: rgba(223, 89, 65, 1); }
 
 /* Focus Mode */
 .focusmode p { color: #CCC; }
