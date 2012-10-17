@@ -632,7 +632,7 @@ Extend(Editor.prototype, {
 				var line = this.getContent(from, from);
 				var value = line.textContent.splice(line.selectionStart, "" , undo.del);
 				this.replaceLines(from.line, from.line, value);
-				this.updateView(from, to);
+				this.updateView(to, to);
 			} else {
 				var from = undo.from, to = undo.to;
 				var line = this.getContent(from, to);
