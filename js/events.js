@@ -38,6 +38,10 @@ Extend(Editor.prototype, {
 	},
 	onMouseDown: function (e) {
 
+		if (e.target.localName == this.mark_container) {
+			return Event.preventDefault(e);
+		}
+
 		var self = this, view = this.element.view.getBoundingClientRect(), line = this.from.line;
 		var y = e.y >= view.bottom - 10 ? e.y - 10 : e.y;
 		var start = this.getPosition(e.x, y), last, going;
