@@ -81,6 +81,7 @@ Extend(Editor.prototype, {
 
 		last = start;
 		start = this.shiftSelecting || start;
+		this.previousSelection = null;
 		this.updateSelection(start, last);
 
 		var mousemove = function (e) {
