@@ -108,7 +108,7 @@ Extend(Editor.prototype, {
 				
 				end = last;
 				if (element.scrollHeight - element.offsetHeight !== element.scrollTop) {
-					element.scrollTop += self.options.line_height;
+					element.scrollTop += self.line_height;
 					end = self.getPosition(e.x, e.y - 10);
 					going = setTimeout(function (){ mousemove(e); } , 150);
 				}
