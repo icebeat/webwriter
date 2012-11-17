@@ -723,8 +723,10 @@ Extend(Editor.prototype, {
 		if (this.focusmode) {
 			this.focusmode = null;
 			this.onMouseWheel();
+			var offsetTop = parseInt(wrapper.style.paddingTop) - line_height;
 			wrapper.style.padding = line_height + "px 0";
-			view.scrollTop = this.selectionStart().y;
+			view.scrollTop = this.selectionStart().y - offsetTop;
+
 		} else {
 			this.focusmode = true;
 			this.editor.classList.add("focusmode");
