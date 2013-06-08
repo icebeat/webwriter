@@ -1,9 +1,10 @@
 {
   "name": "webwriter",
   "version": "1.0.0",
-  "main": "webwriter.js",
+  "main": "dist/webwriter.js",
   "ignore": [
     "**/.*",
-    "node_modules"
+    "node_modules",
+    "src"
   ]
 }
