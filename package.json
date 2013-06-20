@@ -1,0 +1,18 @@
+{
+  "name": "webwriter",
+  "version": "1.0.0",
+  "description": "iA Writer ported to Javascript. (Webkit only)",
+  "main": "webwriter.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ninjabiscuit/webwriter.git"
+  },
+  "author": "icebeat",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-watch": "~0.4.4",
+    "grunt-rigger": "~0.5.0"
+  }
+}
