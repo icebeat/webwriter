@@ -8,6 +8,8 @@ var Editor = function (lines, options) {
 		smartNewline: true
 	};
 
+	Extend(this.options, options);
+
 	this.tag_container = "p";
 	this.mark_container = "mark";
 	this.line_height = 32;
