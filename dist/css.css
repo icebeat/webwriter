@@ -79,7 +79,7 @@ body { overflow: auto; }
 
 	/* Wrapper */
 	.wrapper { width: 832px; margin: 0 auto; }
-		.body { position: relative; }
+		.body { position: relative; cursor: text; }
 
 		/* Measure */
 		.measure {
@@ -88,12 +88,13 @@ body { overflow: auto; }
 			height: 0;
 			overflow: hidden;
 			visibility: hidden;
+			pointer-events: none;
 		}
 			.measure * { display: inline-block; }
 
 		/* Cursor */
 		.cursor {
-			background-color: #00BAFF;
+			background-color: rgb(0, 186, 255);
 			display: block;
 			position: absolute;
 			width: 3px;
@@ -101,11 +102,12 @@ body { overflow: auto; }
 			top: -32px;
 			left: 0;
 			z-index: 15;
+			pointer-events: none;
 			-webkit-animation: blink-cursor 1.2s step-end infinite;
 		}
 
 		@-webkit-keyframes blink-cursor {
-			from, to { background-color: #00BAFF; }
+			from, to { background-color: rgb(0, 186, 255); }
 			50% { background-color: transparent; }
 		}
 
@@ -114,7 +116,8 @@ body { overflow: auto; }
 			position: absolute;
 			display: inline-block;
 			min-height: 32px;
-			background-color: rgba(0, 186, 255, 0.2);
+			background-color: rgba(0, 186, 255, 0.3);
+			pointer-events: none;
 		}
 
 		/* Textarea */
@@ -129,10 +132,11 @@ body { overflow: auto; }
 			border: 0;
 			opacity: 0;
 			z-index: -1;
+			pointer-events: none;
 		}
 
 		/* Content */
-		p, .focusmode .active { color: #424242; }
+		p, .focusmode .active { color: rgb(66, 66, 66); }
 		p, p * {
 			position: relative;
 			font: 21px/32px "Courier New";
@@ -146,7 +150,7 @@ body { overflow: auto; }
 
 			/* Style */
 			strong { font-weight: bold; }
-			em, .focusmode .active em { border-bottom: 2px solid #424242; }
+			em, .focusmode .active em { border-bottom: 2px solid rgb(66, 66, 66); }
 			del { text-decoration: none; }
 			del:before, .focusmode .active del:before {
 				display: block;
@@ -154,10 +158,11 @@ body { overflow: auto; }
 				width: 100%;
 				top: 50%;
 				position: absolute;
-				border-bottom: 2px solid #424242;
+				border-bottom: 2px solid rgb(66, 66, 66);
+				pointer-events: none;
 			}
 			.todo { cursor: pointer; }
 
 /* Focus Mode */
 .focusmode p { color: #CCC; }
-.focusmode em, .focusmode del:before { border-bottom: 2px solid #CCC; }
+.focusmode em, .focusmode del:before { border-bottom: 2px solid rgb(204, 204, 204); }

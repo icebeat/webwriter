@@ -38,10 +38,6 @@ Extend(Editor.prototype, {
 	},
 	onMouseDown: function (e) {
 
-		if (e.target.localName == this.mark_container) {
-			return Event.preventDefault(e);
-		}
-
 		var self = this, view = this.element.view.getBoundingClientRect(), line = this.from.line;
 		var y = e.y >= view.bottom - 10 ? e.y - 10 : e.y;
 		var start = this.getPosition(e.x, y), last, going;
@@ -86,10 +82,6 @@ Extend(Editor.prototype, {
 
 		var mousemove = function (e) {
 
-			if (e.target.localName == self.mark_container) {
-				return Event.preventDefault(e);
-			}
-
 			var end, element = self.element.view;
 			if (e.y <= view.top + 10) {
 
@@ -100,7 +92,7 @@ Extend(Editor.prototype, {
 					if (element.scrollTop === 0) {
 						end = self.getPositionFromChar(1, 0);
 					} else {
-						end = self.getPosition(e.x, e.y + 10);
+						end = self.getPosition(e.x, view.top + 10);
 					}
 				}
 				
@@ -110,7 +102,7 @@ Extend(Editor.prototype, {
 				end = last;
 				if (element.scrollHeight - element.offsetHeight !== element.scrollTop) {
 					element.scrollTop += self.line_height;
-					end = self.getPosition(e.x, e.y - 10);
+					end = self.getPosition(e.x, view.bottom - 10);
 					going = setTimeout(function (){ mousemove(e); } , 150);
 				}
 				

@@ -5,7 +5,7 @@
   "main": "webwriter.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ninjabiscuit/webwriter.git"
+    "url": "git://github.com/icebeat/webwriter.git"
   },
   "author": "icebeat",
   "license": "MIT",
