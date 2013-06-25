@@ -23,9 +23,9 @@ body { overflow: auto; }
 /* Hide Selection */
 ::selection{ background: rgba(0,0,0,0); }
 /* Scrollbars */
-::-webkit-scrollbar { -webkit-appearance: none; width: 5px; }
+/*::-webkit-scrollbar { -webkit-appearance: none; width: 5px; pointer-events: none; }
 ::-webkit-scrollbar-thumb { border-radius: 4px; background-color: rgba(0,0,0,.55); box-shadow: 0 0 1px rgba(255,255,255,.5); }
-
+*/
 /* Editor */
 .editor,
 .view {
@@ -40,7 +40,6 @@ body { overflow: auto; }
 	.view {
 		top: 32px;
 		bottom: 32px;
-		right: 10px;
 		overflow-y: scroll;
 	}
 	

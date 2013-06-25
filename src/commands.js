@@ -149,13 +149,6 @@ Extend(Editor.prototype, {
 
 	getPosition: function (x, y) {
 		var range = document.caretRangeFromPoint(x, y);
-
-		if (range.startContainer.className === "cursor") {
-			// ocultamos el cursor y volvemos a crear el rango
-			this.hideCursor();
-			range = document.caretRangeFromPoint(x, y);
-		}
-
 		range.expand('character');
 
 		var node = range.startContainer, ch = range.startOffset, tag = this.tag_container;
