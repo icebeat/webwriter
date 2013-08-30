@@ -10,6 +10,10 @@ Extend(Editor.prototype, {
 		this.element.content.appendChild(lines);
 	},
 
+  clearLines: function() {
+    this.element.content.innerHTML = '';
+  },
+
 	replaceLines: function (from, to, lines) {
 		var parent = this.element.content;
 		lines = this.parserLines(lines);

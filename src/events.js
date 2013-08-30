@@ -31,7 +31,9 @@ Extend(Editor.prototype, {
 			this.focused = false;
 			this.editor.classList.remove("focused");
 		}
-		this.save();
+    if(this._canSave) {
+		  this.save();
+    }
 		this.hideCursor();
 		var self = this;
 		setTimeout(function () { if (!self.focused) self.setShift(); }, 150);
@@ -184,6 +186,7 @@ Extend(Editor.prototype, {
 			bound();
 			this.shiftSelecting = prevShift;
 		} else {
+      this._canSave = true;
 			bound();
 		}
 		Event.preventDefault(e);
@@ -244,6 +247,7 @@ var keyBindings = {
 		"super+backspace": "deleteLine",
 		"alt+delete": "delWordRight",
 		"super+s": "save",
+    "super+o": "open",
 		"super+f": "find",
 		"super+g": "findNext",
 		"shift+super+g": "findPrev",

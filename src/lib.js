@@ -6,6 +6,7 @@ var $ = function (element) {
 
 var mac = /Mac/.test(navigator.platform);
 var win = /Win/.test(navigator.platform);
+var cros = /CrOS/.test(navigator.userAgent);
 
 var Event = {
 	on: function (el, type, handler, disconnect) {
