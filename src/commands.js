@@ -738,8 +738,13 @@ Extend(Editor.prototype, {
 	},
 
 	save: function () {
-		var save = this.options.localStorage;
-		localStorage[save] = this.getText(1, this.getSize());
+		var save = this.options.localStorage,
+			data = this.getText(1, this.getSize());
+		localStorage[save] = data;
+		if(typeof this.options.save === 'function') {
+			this.options.save(data);
+		}
+
 	}
 
 });

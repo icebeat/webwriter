@@ -6,7 +6,8 @@ var Editor = function (lines, options) {
 		padding_length: 6,
 		smartTypingPairs: true,
 		smartNewline: true,
-		container: document.body
+		container: document.body,
+		save: function() {}
 	};
 
 	Extend(this.options, options);
