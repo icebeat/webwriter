@@ -60,7 +60,7 @@ Extend(Editor.prototype, {
 			input: input
 		};
 
-		document.body.appendChild(this.editor);
+		this.options.container.appendChild(this.editor);
 
 	},
 
