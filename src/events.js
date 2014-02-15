@@ -82,10 +82,9 @@ Extend(Editor.prototype, {
 
 		var mousemove = function (e) {
 
-			var end, element = self.element.view;
+			var end = last, element = self.element.view;
 			if (e.y <= view.top + 10) {
 
-				end = last;
 				if (element.scrollTop !== 0) {
 					element.scrollTop -= self.line_height;
 					going = setTimeout(function (){ mousemove(e); } , 150);
@@ -99,7 +98,6 @@ Extend(Editor.prototype, {
 
 			} else if (e.y >= view.bottom - 10) {
 				
-				end = last;
 				if (element.scrollHeight - element.offsetHeight !== element.scrollTop) {
 					element.scrollTop += self.line_height;
 					end = self.getPosition(e.x, view.bottom - 10);
@@ -107,7 +105,7 @@ Extend(Editor.prototype, {
 				}
 				
 
-			} else {
+			} else if (e.x >= 0 && e.x <= window.innerWidth) {
 				end = self.getPositionFromEvent(e);
 			}
 			last = end;
@@ -116,7 +114,7 @@ Extend(Editor.prototype, {
 
 		};
 
-		var move = Event.on(this.element.view, "mousemove", function (e) {
+		var move = Event.on(document.body, "mousemove", function (e) {
 
 			clearTimeout(going);
 			Event.preventDefault(e);
