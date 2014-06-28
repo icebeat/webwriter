@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="dist/webwriter.css">
 </head>
 <body>
+	<div id="container"></div>
 	<script type="text/javascript" src="src/lib.js"></script>
 	<script type="text/javascript" src="src/editor.js"></script>
 	<script type="text/javascript" src="src/layout.js"></script>
@@ -18,7 +19,13 @@
 	<script type="text/javascript" src="src/undomanager.js"></script>
 	<script type="text/javascript">
 		var text = ["# SHORTCUTS", "", "FocusMode: Cmd + D", "SmartTyping: Type \"<\", \"\"\", \"[\", \"{\" & \"(\"", "Save: Cmd + S", "Indent: Tab or Shift + Tab", "", "## Emphasis and Strong", "", "Emphasis: *example* = _example_ (or Cmd + I)", "Strong: **example** = __example__ (or Cmd + B)", "Delete: -example- (or Cmd + U)", "", "**Expand** to word: Shift + Cmd + Key", "", "## Numbered lists: type \"1.\" + space", "", "1. Ordered list item", "2. Ordered list item", "3. Ordered list item (enter to create a new item)", "", "## Bulleted lists: type \"*\" + space", "", "* Bulleted list item", "* Bulleted list item", "* Bulleted list item", "", "## ToDo lists: type \"-\" or \"+\" + space", "", "- Task (Mark as done, click on \"-\")", "+ Task Done", "", "## Indentation", "", "	This is an example of a indented paragraph.", "", "## Blockquotes", "", "> This is an example of a quoted paragraph. It stays indented over multiple lines until you hit enter.", "","@icebeat"]
-		var Document = new Editor(localStorage["content"] || text);
+		var Document = new Editor(localStorage["content"] || text, {
+			container: document.getElementById('container'),
+			save: function(data) {
+				console.info('Saved data');
+				// console.log(data);
+			}
+		});
 		Document.goDocStart();
 		Document.focusInput();
 	</script>
