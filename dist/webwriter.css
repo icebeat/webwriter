@@ -24,8 +24,18 @@ body { overflow: auto; }
 ::selection{ background: rgba(0,0,0,0); }
 /* Scrollbars */
 /*::-webkit-scrollbar { -webkit-appearance: none; width: 5px; pointer-events: none; }
-::-webkit-scrollbar-thumb { border-radius: 4px; background-color: rgba(0,0,0,.55); box-shadow: 0 0 1px rgba(255,255,255,.5); }
-*/
+::-webkit-scrollbar-thumb { border-radius: 4px; background-color: rgba(0,0,0,.55); box-shadow: 0 0 1px rgba(255,255,255,.5); }*/
+.view::-webkit-scrollbar {
+  width: 6px;
+  background-color: #F5F5F5;
+}
+.view::-webkit-scrollbar-thumb {
+  background-color: #000000;
+}
+.view::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+}
 /* Editor */
 .editor,
 .view {

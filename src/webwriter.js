@@ -10,6 +10,7 @@
   //= selection.js
   //= parser.js
   //= undomanager.js
+  //= chrome.js
 
   // Setup webwriter as an amd module, if define is available
   if (typeof define !== "undefined" && typeof define === "function" && define.amd) {
