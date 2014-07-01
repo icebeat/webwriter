@@ -33,7 +33,7 @@ I had other goals for this project and make everything crossbrowser was not incl
 * Documentation.
 * Gecko support, finally.
 
-# Related projects
+## Related projects
 
 * [CodeMirror](http://codemirror.net) - A versatile text editor implemented in JavaScript for the browser.
 * [Dabblet](http://dabblet.com) - An interactive playground for quickly testing snippets of CSS and HTML code.
