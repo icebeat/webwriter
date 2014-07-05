@@ -144,7 +144,8 @@
   		// Elements
   		var doc = document.createElement("div");
   		doc.innerHTML = template;
-  			editor = doc.firstChild,
+  		
+  		var	editor = doc.firstChild,
   			header = editor.firstChild,
   			footer = editor.lastChild,
   			view = header.nextSibling,
@@ -215,9 +216,9 @@
   */
   Extend(Editor.prototype, {
   	addEvents: function () {
-  		var el = this.element;
-  			view = el.view,
-  			input = el.input;
+  		var el = this.element,
+  				view = el.view,
+  				input = el.input;
   		/* View */
   		Event.on(view, "mousedown", this.onMouseDown.bind(this));
   		Event.on(view, "selectstart", Event.preventDefault);
@@ -263,7 +264,7 @@
   		if (!this.focused) this.onFocus();
   
   		/* Drag and doble click */
-  		var now = +new Date;
+  		var now = +new Date();
   		if (this.lastDoubleClick && this.lastDoubleClick.time > now - 400 && Range.equal(this.lastDoubleClick.position, start)) {
   			Event.preventDefault(e);
   			return this.selectLine(start);
@@ -363,7 +364,7 @@
   		}
   		var code = keyBindings.keyNames[e.keyCode], bound, dropShift;
   		this.setShift(e.keyCode == 16 || e.shiftKey);
-  		if (code == null || e.altGraphKey) {
+  		if (code === null || e.altGraphKey) {
   			return null;
   		}
   		if (e.altKey) {
@@ -452,7 +453,6 @@
   		"super+backspace": "deleteLine",
   		"alt+delete": "delWordRight",
   		"super+s": "save",
-  		"super+f": "find",
   		"super+g": "findNext",
   		"shift+super+g": "findPrev",
   		"super+alt+f": "replace",
@@ -526,9 +526,9 @@
   	// Number keys
   	for (var i = 0; i < 10; i++) keyNames[i + 48] = String(i);
   	// Alphabetic keys
-  	for (var i = 65; i <= 90; i++) keyNames[i] = String.fromCharCode(i).toLowerCase();
+  	for (i = 65; i <= 90; i++) keyNames[i] = String.fromCharCode(i).toLowerCase();
   	// Function keys
-  	for (var i = 1; i <= 12; i++) keyNames[i + 111] = keyNames[i + 63235] = "f" + i;
+  	for (i = 1; i <= 12; i++) keyNames[i + 111] = keyNames[i + 63235] = "f" + i;
   })();
   /*
   
@@ -642,7 +642,7 @@
   
   	getPositionFromChar: function (line, ch) {
   
-  		var node, walker, size, content, range, position, x, y;
+  		var node, walker, size, range, position, x, y;
   
   		node = this.getLine(line);
   
@@ -662,12 +662,12 @@
   		range.setStart(range.startContainer, size);
   		range.setEnd(range.endContainer, size);
   		
-  		var positions = range.getClientRects(), position;
+  		var positions = range.getClientRects();
   		position = positions.length > 1 ? positions[1] : positions[0];
   
   		var element = this.element, wrapper = element.wrapper, content = element.content, line_height = this.line_height;
   
-  		x = position.left,
+  		x = position.left;
   		y = Math.floor((position.top - content.getBoundingClientRect().top)/line_height);
   
   		return {
@@ -703,14 +703,14 @@
   		}
   		var positions = range.getClientRects(), position;
   		if (positions.length > 1) {
-  			var position = positions[( y > positions[0].bottom ? 1 : 0 )];
+  			position = positions[( y > positions[0].bottom ? 1 : 0 )];
   		} else {
-  			var position = positions[0];
+  			position = positions[0];
   		}
   
   		var element = this.element, wrapper = element.wrapper, content = element.content, line_height = this.line_height;
   
-  		x = position.left,
+  		x = position.left;
   		y = Math.floor((position.top - content.getBoundingClientRect().top)/line_height);
   
   		return {
@@ -792,7 +792,7 @@
   			distance = this.line_height;
   		}
   		if (this.shiftSelecting || Range.equal(from, to)) {
-  			if (this.previousSelection != null) {
+  			if (this.previousSelection !== null) {
   				to.x = this.previousSelection;
   			}
   			// posicionar el cursor, coger donde esta
@@ -817,9 +817,6 @@
   			value = this.getInputValue(true),
   			from = this.selectionStart(),
   			to = this.selectionEnd();
-  		if (this.focusmode) {
-  			var scrollH = this.element.content.offsetHeight, scrollT = this.element.view.scrollTop;
-  		}
   		// borramos segun la dirección
   		if (!Range.equal(from, to)) {
   			del = value[1];
@@ -852,7 +849,8 @@
   			to: position
   		});
   		if (this.focusmode) {
-  			var newScrollH = this.element.content.offsetHeight;
+  			var newScrollH = this.element.content.offsetHeight,
+  					scrollH = this.element.content.offsetHeight, scrollT = this.element.view.scrollTop;
   			if (scrollH != newScrollH) {
   				this.element.view.scrollTop = scrollT + newScrollH - scrollH;
   			}
@@ -950,7 +948,7 @@
   			from = this.getPositionFromChar(this.from.line, this.from.ch + start);
   			to = this.getPositionFromChar(this.to.line, this.to.ch + end);
   		}
-  		if(!noHistory && start != 0 && end != 0) {
+  		if(!noHistory && start !== 0 && end !== 0) {
   			this.addHistory({
   				action: "indent",
   				dir: dir,
@@ -972,7 +970,7 @@
   	},
   
   	newlineAndIndent: function () {
-  		var value = this.inputValue.chunk, node, from = this.selectionStart(), to = this.selectionEnd(), line = from.line + 1, ch = 0, start, add = "\n", del = this.textSelected;
+  		var value = this.inputValue.chunk, node, from = this.selectionStart(), to = this.selectionEnd(), line = from.line + 1, ch = 0, start, add = "\n", del = this.textSelected, position;
   		
   		value.splice(1,1);
   		if (this.options.smartNewline) {
@@ -983,7 +981,7 @@
   					line = from.line;
   					del = start[0];
   					this.replaceLines(line, to.line, value);
-  					var position = this.getPositionFromChar(line, 0);
+  					position = this.getPositionFromChar(line, 0);
   					this.addHistory({
   						action: "newline",
   						add: "",
@@ -1003,7 +1001,7 @@
   		}
   
   		this.replaceLines(from.line, to.line, value);
-  		var position = this.getPositionFromChar(line, ch);
+  		position = this.getPositionFromChar(line, ch);
   		this.addHistory({
   			action: "newline",
   			add: add,
@@ -1026,9 +1024,6 @@
   		line = from.line,
   		ch = this.element.input.selectionEnd,
   		textPasted = false;
-  		if (this.focusmode) {
-  			var scrollH = this.element.content.offsetHeight, scrollT = this.element.view.scrollTop;
-  		}
   		if (this.textPasted) {
   			textPasted = true;
   			add = value.slice(this.inputValue.chunk[0].length, ch);
@@ -1054,7 +1049,8 @@
   			to: position
   		});
   		if (this.focusmode) {
-  			var newScrollH = this.element.content.offsetHeight;
+  			var newScrollH = this.element.content.offsetHeight,
+  					scrollH = this.element.content.offsetHeight, scrollT = this.element.view.scrollTop;
   			if (scrollH != newScrollH) {
   				this.element.view.scrollTop = scrollT + newScrollH - scrollH;
   			}
@@ -1127,17 +1123,18 @@
   	},
   
   	undo: function () {
-  		var undo = this.getUndo();
+  		var undo = this.getUndo(), from, to, line, value;
   		if (undo) {
   			var action = undo.action || "";
   			if (action == "indent") {
   				this.indent(undo.dir < 0 ? 1 : -1, undo.from, undo.to, true);
   			} else if (action == "smartTyping") {
-  				var from = undo.from, to = undo.to;
-  				var line = this.getContent(from, to);
+  				from = undo.from;
+  				to = undo.to;
+  				line = this.getContent(from, to);
   				var remove = undo.open.length + undo.close.length;
   				var word = undo.textSelected.length + remove;
-  				var value = line.textContent.splice(
+  				value = line.textContent.splice(
   					line.selectionStart - (undo.textSelected ? word : undo.open.length),
   					undo.textSelected ? word : remove,
   					undo.textSelected
@@ -1147,28 +1144,31 @@
   			} else if (action == "todo") {
   				this.toggleToDo(undo.from, undo.to, true);
   			} else if (undo.textSelected) {
-  				var from = undo.from, to = undo.to;
-  				var line = this.getContent(from, to);
-  				var value = line.textContent.splice(line.selectionStart, undo.add.length , undo.del);
+  				from = undo.from;
+  				to = undo.to;
+  				line = this.getContent(from, to);
+  				value = line.textContent.splice(line.selectionStart, undo.add.length , undo.del);
   				this.replaceLines(from.line, to.line, value);
   				this.updateView(from, undo.textSelected);
-  			} else if (undo.add == "") {
-  				var from = undo.from, to = undo.to;
-  				var line = this.getContent(from, from);
-  				var value = line.textContent.splice(line.selectionStart, "" , undo.del);
+  			} else if (undo.add === "") {
+  				from = undo.from;
+  				to = undo.to;
+  				line = this.getContent(from, from);
+  				value = line.textContent.splice(line.selectionStart, "" , undo.del);
   				this.replaceLines(from.line, from.line, value);
   				this.updateView(to, to);
   			} else {
-  				var from = undo.from, to = undo.to;
-  				var line = this.getContent(from, to);
-  				var value = line.textContent.splice(line.selectionStart, undo.add.length , "");
+  				from = undo.from;
+  				to = undo.to;
+  				line = this.getContent(from, to);
+  				value = line.textContent.splice(line.selectionStart, undo.add.length , "");
   				this.replaceLines(from.line, to.line, value);
   				this.updateView(from, from);
   			}
   		}
   	},
   	redo: function () {
-  		var redo = this.getRedo();
+  		var redo = this.getRedo(), from, to, line, value;
   		if (redo) {
   			var action = redo.action || "";
   			if (action == "indent") {
@@ -1178,23 +1178,26 @@
   			} else if (action == "todo") {
   				this.toggleToDo(redo.from, redo.to, true);
   			} else if (redo.textSelected) {
-  				var from = redo.from, to = redo.to;
-  				var line = this.getContent(from, redo.textSelected);
-  				var value = line.textContent.splice(line.selectionStart, redo.del.length , redo.add);
+  				from = redo.from;
+  				to = redo.to;
+  				line = this.getContent(from, redo.textSelected);
+  				value = line.textContent.splice(line.selectionStart, redo.del.length , redo.add);
   				this.replaceLines(from.line, redo.textSelected.line, value);
   				this.updateView(to, to);
-  			} else if (redo.add == "") {
+  			} else if (redo.add === "") {
   				// texto borrado
-  				var from = redo.from, to = redo.to;
-  				var line = this.getContent(from, to);
-  				var value = line.textContent.splice(line.selectionStart, redo.del.length , "");
+  				from = redo.from;
+  				to = redo.to;
+  				line = this.getContent(from, to);
+  				value = line.textContent.splice(line.selectionStart, redo.del.length , "");
   				this.replaceLines(from.line, to.line, value);
   				this.updateView(from, from);
   			} else {
   				// texto añadido
-  				var from = redo.from, to = redo.to;
-  				var line = this.getContent(from, from);
-  				var value = line.textContent.splice(line.selectionStart, "" , redo.add);
+  				from = redo.from;
+  				to = redo.to;
+  				line = this.getContent(from, from);
+  				value = line.textContent.splice(line.selectionStart, "" , redo.add);
   				this.replaceLines(from.line, from.line, value);
   				this.updateView(to, to);
   			}
@@ -1214,7 +1217,7 @@
   
   	toggleToDo: function (from, to, noHistory) {
   
-  		from = from || this.selectionStart()
+  		from = from || this.selectionStart();
   		to = to || this.selectionEnd();
   		var line = this.getLine(from.line), i = to.line - from.line + 1, lines = [], text, ch, value, replace;
   		while (i--) {
@@ -1389,7 +1392,7 @@
   		} else if (from.y > to.y || (from.y === to.y && from.x > to.x)) {
   			this.inverted = true;
   		}
-  		if (highlight != false) {
+  		if (highlight !== false) {
   			if (this.inverted) {
   				from = this.to;
   				to = this.from;
@@ -1479,27 +1482,31 @@
   
   		line = document.createElement(tag);
   
-  		if (match = Parser.tab.exec(text)) {
+  		match = Parser.tab.exec(text);
+  		if (match) {
   			line.classList.add("code");
   			width = match[1].length * tab_width;
   			line.style.marginLeft = width+"px";
   			value = "<span class=\"tab\" style=\"margin-left:-"+width+"px;\">" + match[1] + "</span>" + Parser.inline(match[2]);
   		}
   
-  		if (match = Parser.header.exec(text)) {
+  		match = Parser.header.exec(text);
+  		if (match) {
   			line.classList.add("header");
   			width = match[1].length * em_width;
   			value = "<span style=\"margin-left:-"+width+"px;\">" + match[1] + "</span>" + "<strong>" + Parser.inline(match[2]) + "</srong>";
   		}
   
-  		if (match = Parser.blockquote.exec(text)) {
+  		match = Parser.blockquote.exec(text);
+  		if (match) {
   			line.classList.add("blockquote");
   			width = match[1].length * em_width;
   			line.style.marginLeft = width+"px";
   			value = "<span style=\"margin-left:-"+width+"px;\">" + match[1] + "</span>" + Parser.inline(match[3]);
   		}
   
-  		if (match = Parser.list.exec(text)) {
+  		match = Parser.list.exec(text);
+  		if (match) {
   			line.classList.add("list");
   			width = match[1].length * em_width;
   			var todo = match[1] == "+ " || match[1] == "- " ? "<span class=\"todo\">" + match[1][0] + "</span> " : match[1];
@@ -1527,7 +1534,8 @@
   
   		while (text) {
   
-  			if (match = Parser.strong.exec(text)) {
+  			match = Parser.strong.exec(text);
+  			if (match) {
   				tag = match[1] || match[4];
   				value = tag + "<strong>" + Parser.escape(match[2] || match[5]) + "</strong>" + tag;
   				line.push(value);
@@ -1535,7 +1543,8 @@
   				continue;
   			}
   
-  			if (match = Parser.em.exec(text)) {
+  			match = Parser.em.exec(text);
+  			if (match) {
   				tag = match[1] || match[4];
   				value = tag + "<em>" + Parser.escape(match[2] || match[5]) + "</em>" + tag;
   				line.push(value);
@@ -1543,14 +1552,16 @@
   				continue;
   			}
   
-  			if (match = Parser.del.exec(text)) {
+  			Parser.del.exec(text);
+  			if (match) {
   				value = "-<del>" + Parser.escape(match[2]) + "</del>-";
   				line.push(value);
   				text = text.slice(match[0].length);
   				continue;
   			}
   
-  			if (match = Parser.text.exec(text)) {
+  			match = Parser.text.exec(text);
+  			if (match) {
   				line.push(Parser.escape(match[0]));
   				text = text.slice(match[0].length);
   				continue;
@@ -1567,16 +1578,20 @@
   		var match, value = "", newvalue = "";
   
   		/* Parseamos el texto */
-  		if (match = Parser.tab.exec(text)) {
+  		match = Parser.tab.exec(text);
+  		if (match) {
   			value = newvalue = match[1];
   		}
   
-  		if (match = Parser.list.exec(text)) {
-  			value = newvalue = match[1], numeric = value.split(".");
+  		match = Parser.list.exec(text);
+  		if (match) {
+  			value = newvalue = match[1];
+  
+  			var numeric = value.split(".");
   			
   			if (numeric.length > 1) {
   				numeric[0]++;
-  				newvalue = numeric.join(".")
+  				newvalue = numeric.join(".");
   			}
   
   		}
@@ -1620,12 +1635,12 @@
   
   		if(lastAction) {
   			var push = 
-  					lastAction.action || action.action
-  					|| lastAction.textSelected || action.textSelected
-  					|| (action.del && lastAction.add) 
-  					|| (action.add && !lastAction.add)
-  					|| (action.add && !Range.equal(lastAction.to, action.from))
-  					|| (action.del && !Range.equal(lastAction.from, action.to));
+  					lastAction.action || action.action ||
+  					lastAction.textSelected || action.textSelected ||
+  					(action.del && lastAction.add) ||
+  					(action.add && !lastAction.add) ||
+  					(action.add && !Range.equal(lastAction.to, action.from)) ||
+  					(action.del && !Range.equal(lastAction.from, action.to));
   			
   			if (push) {
   			  	this.undoStack.push(lastAction);

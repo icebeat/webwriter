@@ -1,8 +1,8 @@
 {
   "name": "webwriter",
   "version": "1.0.0",
-  "description": "iA Writer ported to Javascript. (Webkit only)",
-  "main": "webwriter.js",
+  "description": "iA Writer ported to Javascript for WebKit",
+  "main": "gulpfile.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/icebeat/webwriter.git"
@@ -10,9 +10,14 @@
   "author": "icebeat",
   "license": "MIT",
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-uglify": "~0.2.2",
-    "grunt-contrib-watch": "~0.4.4",
-    "grunt-rigger": "~0.5.0"
+    "gulp": "^3.8.5",
+    "gulp-autoprefixer": "0.0.8",
+    "gulp-connect": "^2.0.5",
+    "gulp-csso": "^0.2.9",
+    "gulp-jshint": "^1.6.3",
+    "gulp-rename": "^1.2.0",
+    "gulp-rigger": "^0.5.8",
+    "gulp-ruby-sass": "^0.5.0",
+    "gulp-uglify": "^0.3.1"
   }
 }

@@ -28,7 +28,8 @@ Extend(Editor.prototype, {
 		// Elements
 		var doc = document.createElement("div");
 		doc.innerHTML = template;
-			editor = doc.firstChild,
+		
+		var	editor = doc.firstChild,
 			header = editor.firstChild,
 			footer = editor.lastChild,
 			view = header.nextSibling,

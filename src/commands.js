@@ -110,7 +110,7 @@ Extend(Editor.prototype, {
 
 	getPositionFromChar: function (line, ch) {
 
-		var node, walker, size, content, range, position, x, y;
+		var node, walker, size, range, position, x, y;
 
 		node = this.getLine(line);
 
@@ -130,12 +130,12 @@ Extend(Editor.prototype, {
 		range.setStart(range.startContainer, size);
 		range.setEnd(range.endContainer, size);
 		
-		var positions = range.getClientRects(), position;
+		var positions = range.getClientRects();
 		position = positions.length > 1 ? positions[1] : positions[0];
 
 		var element = this.element, wrapper = element.wrapper, content = element.content, line_height = this.line_height;
 
-		x = position.left,
+		x = position.left;
 		y = Math.floor((position.top - content.getBoundingClientRect().top)/line_height);
 
 		return {
@@ -171,14 +171,14 @@ Extend(Editor.prototype, {
 		}
 		var positions = range.getClientRects(), position;
 		if (positions.length > 1) {
-			var position = positions[( y > positions[0].bottom ? 1 : 0 )];
+			position = positions[( y > positions[0].bottom ? 1 : 0 )];
 		} else {
-			var position = positions[0];
+			position = positions[0];
 		}
 
 		var element = this.element, wrapper = element.wrapper, content = element.content, line_height = this.line_height;
 
-		x = position.left,
+		x = position.left;
 		y = Math.floor((position.top - content.getBoundingClientRect().top)/line_height);
 
 		return {
@@ -260,7 +260,7 @@ Extend(Editor.prototype, {
 			distance = this.line_height;
 		}
 		if (this.shiftSelecting || Range.equal(from, to)) {
-			if (this.previousSelection != null) {
+			if (this.previousSelection !== null) {
 				to.x = this.previousSelection;
 			}
 			// posicionar el cursor, coger donde esta
@@ -285,9 +285,6 @@ Extend(Editor.prototype, {
 			value = this.getInputValue(true),
 			from = this.selectionStart(),
 			to = this.selectionEnd();
-		if (this.focusmode) {
-			var scrollH = this.element.content.offsetHeight, scrollT = this.element.view.scrollTop;
-		}
 		// borramos segun la dirección
 		if (!Range.equal(from, to)) {
 			del = value[1];
@@ -320,7 +317,8 @@ Extend(Editor.prototype, {
 			to: position
 		});
 		if (this.focusmode) {
-			var newScrollH = this.element.content.offsetHeight;
+			var newScrollH = this.element.content.offsetHeight,
+					scrollH = this.element.content.offsetHeight, scrollT = this.element.view.scrollTop;
 			if (scrollH != newScrollH) {
 				this.element.view.scrollTop = scrollT + newScrollH - scrollH;
 			}
@@ -418,7 +416,7 @@ Extend(Editor.prototype, {
 			from = this.getPositionFromChar(this.from.line, this.from.ch + start);
 			to = this.getPositionFromChar(this.to.line, this.to.ch + end);
 		}
-		if(!noHistory && start != 0 && end != 0) {
+		if(!noHistory && start !== 0 && end !== 0) {
 			this.addHistory({
 				action: "indent",
 				dir: dir,
@@ -440,7 +438,7 @@ Extend(Editor.prototype, {
 	},
 
 	newlineAndIndent: function () {
-		var value = this.inputValue.chunk, node, from = this.selectionStart(), to = this.selectionEnd(), line = from.line + 1, ch = 0, start, add = "\n", del = this.textSelected;
+		var value = this.inputValue.chunk, node, from = this.selectionStart(), to = this.selectionEnd(), line = from.line + 1, ch = 0, start, add = "\n", del = this.textSelected, position;
 		
 		value.splice(1,1);
 		if (this.options.smartNewline) {
@@ -451,7 +449,7 @@ Extend(Editor.prototype, {
 					line = from.line;
 					del = start[0];
 					this.replaceLines(line, to.line, value);
-					var position = this.getPositionFromChar(line, 0);
+					position = this.getPositionFromChar(line, 0);
 					this.addHistory({
 						action: "newline",
 						add: "",
@@ -471,7 +469,7 @@ Extend(Editor.prototype, {
 		}
 
 		this.replaceLines(from.line, to.line, value);
-		var position = this.getPositionFromChar(line, ch);
+		position = this.getPositionFromChar(line, ch);
 		this.addHistory({
 			action: "newline",
 			add: add,
@@ -494,9 +492,6 @@ Extend(Editor.prototype, {
 		line = from.line,
 		ch = this.element.input.selectionEnd,
 		textPasted = false;
-		if (this.focusmode) {
-			var scrollH = this.element.content.offsetHeight, scrollT = this.element.view.scrollTop;
-		}
 		if (this.textPasted) {
 			textPasted = true;
 			add = value.slice(this.inputValue.chunk[0].length, ch);
@@ -522,7 +517,8 @@ Extend(Editor.prototype, {
 			to: position
 		});
 		if (this.focusmode) {
-			var newScrollH = this.element.content.offsetHeight;
+			var newScrollH = this.element.content.offsetHeight,
+					scrollH = this.element.content.offsetHeight, scrollT = this.element.view.scrollTop;
 			if (scrollH != newScrollH) {
 				this.element.view.scrollTop = scrollT + newScrollH - scrollH;
 			}
@@ -595,17 +591,18 @@ Extend(Editor.prototype, {
 	},
 
 	undo: function () {
-		var undo = this.getUndo();
+		var undo = this.getUndo(), from, to, line, value;
 		if (undo) {
 			var action = undo.action || "";
 			if (action == "indent") {
 				this.indent(undo.dir < 0 ? 1 : -1, undo.from, undo.to, true);
 			} else if (action == "smartTyping") {
-				var from = undo.from, to = undo.to;
-				var line = this.getContent(from, to);
+				from = undo.from;
+				to = undo.to;
+				line = this.getContent(from, to);
 				var remove = undo.open.length + undo.close.length;
 				var word = undo.textSelected.length + remove;
-				var value = line.textContent.splice(
+				value = line.textContent.splice(
 					line.selectionStart - (undo.textSelected ? word : undo.open.length),
 					undo.textSelected ? word : remove,
 					undo.textSelected
@@ -615,28 +612,31 @@ Extend(Editor.prototype, {
 			} else if (action == "todo") {
 				this.toggleToDo(undo.from, undo.to, true);
 			} else if (undo.textSelected) {
-				var from = undo.from, to = undo.to;
-				var line = this.getContent(from, to);
-				var value = line.textContent.splice(line.selectionStart, undo.add.length , undo.del);
+				from = undo.from;
+				to = undo.to;
+				line = this.getContent(from, to);
+				value = line.textContent.splice(line.selectionStart, undo.add.length , undo.del);
 				this.replaceLines(from.line, to.line, value);
 				this.updateView(from, undo.textSelected);
-			} else if (undo.add == "") {
-				var from = undo.from, to = undo.to;
-				var line = this.getContent(from, from);
-				var value = line.textContent.splice(line.selectionStart, "" , undo.del);
+			} else if (undo.add === "") {
+				from = undo.from;
+				to = undo.to;
+				line = this.getContent(from, from);
+				value = line.textContent.splice(line.selectionStart, "" , undo.del);
 				this.replaceLines(from.line, from.line, value);
 				this.updateView(to, to);
 			} else {
-				var from = undo.from, to = undo.to;
-				var line = this.getContent(from, to);
-				var value = line.textContent.splice(line.selectionStart, undo.add.length , "");
+				from = undo.from;
+				to = undo.to;
+				line = this.getContent(from, to);
+				value = line.textContent.splice(line.selectionStart, undo.add.length , "");
 				this.replaceLines(from.line, to.line, value);
 				this.updateView(from, from);
 			}
 		}
 	},
 	redo: function () {
-		var redo = this.getRedo();
+		var redo = this.getRedo(), from, to, line, value;
 		if (redo) {
 			var action = redo.action || "";
 			if (action == "indent") {
@@ -646,23 +646,26 @@ Extend(Editor.prototype, {
 			} else if (action == "todo") {
 				this.toggleToDo(redo.from, redo.to, true);
 			} else if (redo.textSelected) {
-				var from = redo.from, to = redo.to;
-				var line = this.getContent(from, redo.textSelected);
-				var value = line.textContent.splice(line.selectionStart, redo.del.length , redo.add);
+				from = redo.from;
+				to = redo.to;
+				line = this.getContent(from, redo.textSelected);
+				value = line.textContent.splice(line.selectionStart, redo.del.length , redo.add);
 				this.replaceLines(from.line, redo.textSelected.line, value);
 				this.updateView(to, to);
-			} else if (redo.add == "") {
+			} else if (redo.add === "") {
 				// texto borrado
-				var from = redo.from, to = redo.to;
-				var line = this.getContent(from, to);
-				var value = line.textContent.splice(line.selectionStart, redo.del.length , "");
+				from = redo.from;
+				to = redo.to;
+				line = this.getContent(from, to);
+				value = line.textContent.splice(line.selectionStart, redo.del.length , "");
 				this.replaceLines(from.line, to.line, value);
 				this.updateView(from, from);
 			} else {
 				// texto añadido
-				var from = redo.from, to = redo.to;
-				var line = this.getContent(from, from);
-				var value = line.textContent.splice(line.selectionStart, "" , redo.add);
+				from = redo.from;
+				to = redo.to;
+				line = this.getContent(from, from);
+				value = line.textContent.splice(line.selectionStart, "" , redo.add);
 				this.replaceLines(from.line, from.line, value);
 				this.updateView(to, to);
 			}
@@ -682,7 +685,7 @@ Extend(Editor.prototype, {
 
 	toggleToDo: function (from, to, noHistory) {
 
-		from = from || this.selectionStart()
+		from = from || this.selectionStart();
 		to = to || this.selectionEnd();
 		var line = this.getLine(from.line), i = to.line - from.line + 1, lines = [], text, ch, value, replace;
 		while (i--) {
