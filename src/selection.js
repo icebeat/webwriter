@@ -22,7 +22,7 @@ Extend(Editor.prototype, {
 		} else if (from.y > to.y || (from.y === to.y && from.x > to.x)) {
 			this.inverted = true;
 		}
-		if (highlight != false) {
+		if (highlight !== false) {
 			if (this.inverted) {
 				from = this.to;
 				to = this.from;

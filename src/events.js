@@ -5,9 +5,9 @@ Events.js
 */
 Extend(Editor.prototype, {
 	addEvents: function () {
-		var el = this.element;
-			view = el.view,
-			input = el.input;
+		var el = this.element,
+				view = el.view,
+				input = el.input;
 		/* View */
 		Event.on(view, "mousedown", this.onMouseDown.bind(this));
 		Event.on(view, "selectstart", Event.preventDefault);
@@ -53,7 +53,7 @@ Extend(Editor.prototype, {
 		if (!this.focused) this.onFocus();
 
 		/* Drag and doble click */
-		var now = +new Date;
+		var now = +new Date();
 		if (this.lastDoubleClick && this.lastDoubleClick.time > now - 400 && Range.equal(this.lastDoubleClick.position, start)) {
 			Event.preventDefault(e);
 			return this.selectLine(start);
@@ -153,7 +153,7 @@ Extend(Editor.prototype, {
 		}
 		var code = keyBindings.keyNames[e.keyCode], bound, dropShift;
 		this.setShift(e.keyCode == 16 || e.shiftKey);
-		if (code == null || e.altGraphKey) {
+		if (code === null || e.altGraphKey) {
 			return null;
 		}
 		if (e.altKey) {
@@ -242,7 +242,6 @@ var keyBindings = {
 		"super+backspace": "deleteLine",
 		"alt+delete": "delWordRight",
 		"super+s": "save",
-		"super+f": "find",
 		"super+g": "findNext",
 		"shift+super+g": "findPrev",
 		"super+alt+f": "replace",
@@ -316,7 +315,7 @@ keyBindings.keyNames = keyNames;
 	// Number keys
 	for (var i = 0; i < 10; i++) keyNames[i + 48] = String(i);
 	// Alphabetic keys
-	for (var i = 65; i <= 90; i++) keyNames[i] = String.fromCharCode(i).toLowerCase();
+	for (i = 65; i <= 90; i++) keyNames[i] = String.fromCharCode(i).toLowerCase();
 	// Function keys
-	for (var i = 1; i <= 12; i++) keyNames[i + 111] = keyNames[i + 63235] = "f" + i;
+	for (i = 1; i <= 12; i++) keyNames[i + 111] = keyNames[i + 63235] = "f" + i;
 })();

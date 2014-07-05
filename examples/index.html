@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>WebWriter</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../dist/webwriter.min.css">
+</head>
+<body>
+  <script type="text/javascript" src="../dist/webwriter.min.js"></script>
+  <script type="text/javascript">
+    var text = ["# SHORTCUTS", "", "FocusMode: Cmd + D", "SmartTyping: Type \"<\", \"\"\", \"[\", \"{\" & \"(\"", "Save: Cmd + S", "Indent: Tab or Shift + Tab", "", "## Emphasis and Strong", "", "Emphasis: *example* = _example_ (or Cmd + I)", "Strong: **example** = __example__ (or Cmd + B)", "Delete: -example- (or Cmd + U)", "", "**Expand** to word: Shift + Cmd + Key", "", "## Numbered lists: type \"1.\" + space", "", "1. Ordered list item", "2. Ordered list item", "3. Ordered list item (enter to create a new item)", "", "## Bulleted lists: type \"*\" + space", "", "* Bulleted list item", "* Bulleted list item", "* Bulleted list item", "", "## ToDo lists: type \"-\" or \"+\" + space", "", "- Task (Mark as done, click on \"-\")", "+ Task Done", "", "## Indentation", "", " This is an example of a indented paragraph.", "", "## Blockquotes", "", "> This is an example of a quoted paragraph. It stays indented over multiple lines until you hit enter.", "","@icebeat"]
+    var Document = new Editor(localStorage["content"] || text);
+    Document.goDocStart();
+    Document.focusInput();
+  </script>
+</body>
+</html>

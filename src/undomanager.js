@@ -32,12 +32,12 @@ UndoManager.prototype = {
 
 		if(lastAction) {
 			var push = 
-					lastAction.action || action.action
-					|| lastAction.textSelected || action.textSelected
-					|| (action.del && lastAction.add) 
-					|| (action.add && !lastAction.add)
-					|| (action.add && !Range.equal(lastAction.to, action.from))
-					|| (action.del && !Range.equal(lastAction.from, action.to));
+					lastAction.action || action.action ||
+					lastAction.textSelected || action.textSelected ||
+					(action.del && lastAction.add) ||
+					(action.add && !lastAction.add) ||
+					(action.add && !Range.equal(lastAction.to, action.from)) ||
+					(action.del && !Range.equal(lastAction.from, action.to));
 			
 			if (push) {
 			  	this.undoStack.push(lastAction);

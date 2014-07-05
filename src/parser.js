@@ -42,27 +42,31 @@ var Parser = {
 
 		line = document.createElement(tag);
 
-		if (match = Parser.tab.exec(text)) {
+		match = Parser.tab.exec(text);
+		if (match) {
 			line.classList.add("code");
 			width = match[1].length * tab_width;
 			line.style.marginLeft = width+"px";
 			value = "<span class=\"tab\" style=\"margin-left:-"+width+"px;\">" + match[1] + "</span>" + Parser.inline(match[2]);
 		}
 
-		if (match = Parser.header.exec(text)) {
+		match = Parser.header.exec(text);
+		if (match) {
 			line.classList.add("header");
 			width = match[1].length * em_width;
 			value = "<span style=\"margin-left:-"+width+"px;\">" + match[1] + "</span>" + "<strong>" + Parser.inline(match[2]) + "</srong>";
 		}
 
-		if (match = Parser.blockquote.exec(text)) {
+		match = Parser.blockquote.exec(text);
+		if (match) {
 			line.classList.add("blockquote");
 			width = match[1].length * em_width;
 			line.style.marginLeft = width+"px";
 			value = "<span style=\"margin-left:-"+width+"px;\">" + match[1] + "</span>" + Parser.inline(match[3]);
 		}
 
-		if (match = Parser.list.exec(text)) {
+		match = Parser.list.exec(text);
+		if (match) {
 			line.classList.add("list");
 			width = match[1].length * em_width;
 			var todo = match[1] == "+ " || match[1] == "- " ? "<span class=\"todo\">" + match[1][0] + "</span> " : match[1];
@@ -90,7 +94,8 @@ var Parser = {
 
 		while (text) {
 
-			if (match = Parser.strong.exec(text)) {
+			match = Parser.strong.exec(text);
+			if (match) {
 				tag = match[1] || match[4];
 				value = tag + "<strong>" + Parser.escape(match[2] || match[5]) + "</strong>" + tag;
 				line.push(value);
@@ -98,7 +103,8 @@ var Parser = {
 				continue;
 			}
 
-			if (match = Parser.em.exec(text)) {
+			match = Parser.em.exec(text);
+			if (match) {
 				tag = match[1] || match[4];
 				value = tag + "<em>" + Parser.escape(match[2] || match[5]) + "</em>" + tag;
 				line.push(value);
@@ -106,14 +112,16 @@ var Parser = {
 				continue;
 			}
 
-			if (match = Parser.del.exec(text)) {
+			Parser.del.exec(text);
+			if (match) {
 				value = "-<del>" + Parser.escape(match[2]) + "</del>-";
 				line.push(value);
 				text = text.slice(match[0].length);
 				continue;
 			}
 
-			if (match = Parser.text.exec(text)) {
+			match = Parser.text.exec(text);
+			if (match) {
 				line.push(Parser.escape(match[0]));
 				text = text.slice(match[0].length);
 				continue;
@@ -130,16 +138,20 @@ var Parser = {
 		var match, value = "", newvalue = "";
 
 		/* Parseamos el texto */
-		if (match = Parser.tab.exec(text)) {
+		match = Parser.tab.exec(text);
+		if (match) {
 			value = newvalue = match[1];
 		}
 
-		if (match = Parser.list.exec(text)) {
-			value = newvalue = match[1], numeric = value.split(".");
+		match = Parser.list.exec(text);
+		if (match) {
+			value = newvalue = match[1];
+
+			var numeric = value.split(".");
 			
 			if (numeric.length > 1) {
 				numeric[0]++;
-				newvalue = numeric.join(".")
+				newvalue = numeric.join(".");
 			}
 
 		}
