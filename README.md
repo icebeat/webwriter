@@ -20,8 +20,8 @@ I had other goals for this project and make everything crossbrowser was not incl
 
 ## What is next
 
-* Use [Gulp](http://gulpjs.com/) instead of [Grunt](http://gruntjs.com/).
-* New repo structure with examples.
+* ~~Use [Gulp](http://gulpjs.com/) instead of [Grunt](http://gruntjs.com/).~~
+* ~~New repo structure with examples.~~
 * New lib structure.
 * New class constructor with more options (container support).
 * Responsive support (not more fix width).
